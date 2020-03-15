@@ -11,8 +11,8 @@ my.formula<-y~I(x^2)+I(x^3)
 m <- lm(my.formula, covid19_1)
 summary(m)
 m
-my.eq<-"3.910 - 0.329*x^2 + 0.0384*x^3"
-p<-ggplot(data=covid19, aes(t,casos)) + xlim(0,25)+ylim(0,500)+
+my.eq<-"7.4834 - 0.5378*x^2 + 0.05194*x^3"
+p<-ggplot(data=covid19, aes(t,casos)) + xlim(0,26)+ylim(0,700)+
   geom_point(alpha=0.7, shape=21, fill="red", colour="black", size=5) +
   geom_smooth(method="lm", se=TRUE, formula=y~I(x^2)+I(x^3), fullrange=TRUE)
 label.text <- paste(gsub("x", "~italic(x)", my.eq, fixed = TRUE),
