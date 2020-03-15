@@ -2,6 +2,7 @@ library(ggplot2)
 library(readr)
 library(polynom)
 
+
 covid19 <- read_delim("covid19_brasil.csv",
                       ";", escape_double = FALSE, col_types = cols(datas = col_datetime(format = "%d/%m/%Y")),
                       trim_ws = TRUE)
@@ -12,7 +13,7 @@ m <- lm(my.formula, covid19_1)
 summary(m)
 m
 my.eq<-"7.4834 - 0.5378*x^2 + 0.05194*x^3"
-p<-ggplot(data=covid19, aes(t,casos)) + xlim(0,26)+ylim(0,700)+
+p<-ggplot(data=covid19, aes(t,casos)) + xlim(0,26)+ylim(0,650)+
   geom_point(alpha=0.7, shape=21, fill="red", colour="black", size=5) +
   geom_smooth(method="lm", se=TRUE, formula=y~I(x^2)+I(x^3), fullrange=TRUE)
 label.text <- paste(gsub("x", "~italic(x)", my.eq, fixed = TRUE),
@@ -20,7 +21,7 @@ label.text <- paste(gsub("x", "~italic(x)", my.eq, fixed = TRUE),
                           format(summary(m)$r.squared, digits = 2),
                           sep = "~`=`~"),
                     sep = "~~~~")
-p<-p+labs(y="Casos confirmados de COVID-19", x = "Dias desde o primeiro caso registrado de COVID-19", caption = "Fonte: Ministério da Saúde (Dados atualizados em 14/03/2020 às 16:25)") +
+p<-p+labs(y="Casos confirmados de COVID-19", x = "Dias desde o primeiro caso registrado de COVID-19", caption = "Fonte: Ministério da Saúde (Dados atualizados em 15/03/2020 às 18:10)") +
   ggtitle("COVID-19 no Brasil", subtitle = "Atenção: este é apenas um exercício didático, sem fins científicos")
 p<-p + theme_light(base_size = 14)
 jpeg(filename = "covid19.jpg",width = 2500, height = 2500,
