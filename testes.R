@@ -4,9 +4,12 @@
 # https://www.lewuathe.com/covid-19-dynamics-with-sir-model.html
 
 install.packages('deSolve')
+install.packages("EpiDynamics")
 library(deSolve)
+library(EpiDynamics)
 
-beta_sir=R0_sir/d_sir # Transmission parameter
+
+
 
 
 #R0 =basic reproduction number(the number of secondary cases produced by a single infected case over their infectious period.)
@@ -17,6 +20,46 @@ R0_sir = 3.28 #https://www.diva-portal.org/smash/get/diva2:1396034/FULLTEXT01
 
 d_sir = 10.91#infectious period https://poseidon01.ssrn.com/delivery.php?ID=651025110121108102003105082121122066052053041082042078007010036104005003025063108015039072051004041093034003002036033041062033022033054078003037030031046007039108026031068083013113090127105049014042067009082077104083101121119105109066126070027110071065012065018030069084000117&EXT=pdf
 
-
+beta_sir=R0_sir/d_sir # Transmission parameter
 gamma_sir = 1/d_sir  #recovery parameter (rate of infected transitioning to recovered) 
 
+
+####https://towardsdatascience.com/social-distancing-to-slow-the-coronavirus-768292f04296
+
+R0<-3.5
+gamma_sir_1<-0.5
+beta_sir_1<-1.75
+#######################
+
+# Parameters and initial conditions.
+parameters <- c(beta = 1.75, gamma =0.5)
+initials <- c(S = 1 - 1e-06, I = 1e-06, R = 1 - (1 - 1e-06 - 1e-06))
+
+# Solve and plot.
+sir <- SIR(pars = parameters, init = initials, time = 0:30)
+PlotMods(sir)
+
+
+
+install.packages("shinySIR")
+library(shinySIR)
+run_shiny(model = "SIR")
+
+
+install.packages("SimInf")
+library(SimInf)
+## Create an SIR model object.
+
+model <- SIR(u0 = data.frame(S = 1000000, I = 1, R = 0),
+             tspan = 0:60,
+             beta = beta_sir,
+             gamma = gamma_sir)
+
+## Run the SIR model and plot the result.
+result <- run(model)
+plot(result)
+
+trajectory(result)
+trajectory(result, compartments = "R", node = 1)
+
+pairs(result)
