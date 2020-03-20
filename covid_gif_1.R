@@ -46,7 +46,7 @@ p_gif <- ggplot(covid_long_1st, aes(x=tempo_st, y=casos, group=pais)) +
   ggtitle("COVID-19", subtitle = "Comparativo de Brasil, Itália e Japão, desde o registro do primeiro caso")+
   labs(y="Casos confirmados (log10)", x = "Tempo (dias)", caption = "Fonte: Johns Hopkins CSSE")+
   geom_line(size=2,aes(linetype=pais, color=pais)) +
-  geom_segment(aes(xend=max(tempo_st), yend = casos), linetype=2, colour='blue') +
+  geom_segment(aes(xend=max(tempo_st), yend = casos), linetype=2, colour='black') +
   geom_point(size = 3) + 
   geom_text(size=5,aes(x = max(tempo_st), label = pais), hjust = 0) +
   transition_reveal(tempo_st) + 
