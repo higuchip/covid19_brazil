@@ -56,5 +56,5 @@ p_gif <- ggplot(covid_long_1st, aes(x=tempo_st, y=casos, group=pais)) +
   theme_light(base_size = 14) + 
   theme(plot.margin = margin(5.5, 40, 5.5, 5.5),legend.position = "none")
 
-gif_paises<-animate(p_gif, fps=4, duration = 20, renderer = gifski_renderer(loop = F))
+gif_paises<-animate(p_gif, fps=4, duration = 20, renderer = gifski_renderer(loop = T))
 anim_save("paises_covid.gif", gif_paises)
