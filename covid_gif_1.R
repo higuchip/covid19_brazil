@@ -44,7 +44,7 @@ covid_long_1st$tempo_st<-c(1:dim(covid_long_1st %>% filter(pais=='Brasil'))[1], 
 p_gif <- ggplot(covid_long_1st, aes(x=tempo_st, y=casos, group=pais)) +
   scale_y_log10()+
   ggtitle("COVID-19", subtitle = "Comparativo de Brasil, Itália e Japão, desde o registro do primeiro caso")+
-  labs(y="Casos confirmados (log10)", x = "Tempo (dias)", caption = "Fonte: Johns Hopkins CSSE")+
+  labs(y="Casos confirmados (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE")+
   geom_line(size=2,aes(linetype=pais, color=pais)) +
   geom_segment(aes(xend=max(tempo_st), yend = casos), linetype=2, colour='black') +
   geom_point(size = 3) + 
