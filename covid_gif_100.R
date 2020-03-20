@@ -27,19 +27,24 @@ covid_confirmed_japao <-covid_confirmed %>% filter(`Country/Region` == 'Japan')
 covid_confirmed_japao <-covid_confirmed_japao[,5:dim(covid_confirmed_japao)[2]]
 dim(covid_confirmed_japao)
 
+covid_confirmed_korea_s <-covid_confirmed %>% filter(`Country/Region` == 'Korea, South')
+covid_confirmed_korea_s <-covid_confirmed_korea_s[,5:dim(covid_confirmed_korea_s)[2]]
+dim(covid_confirmed_korea_s)
 
-covid_confirmed_paises <- rbind(covid_confirmed_brasil, covid_confirmed_italia, covid_confirmed_japao)
+
+
+covid_confirmed_paises <- rbind(covid_confirmed_korea_s, covid_confirmed_brasil, covid_confirmed_italia, covid_confirmed_japao)
 covid_confirmed_paises<-t(covid_confirmed_paises)
-colnames(covid_confirmed_paises)<-c('Brasil','Italia', 'Japao')
+colnames(covid_confirmed_paises)<-c('Coreia do Sul','Brasil','Italia', 'Japao')
 
 
 covid_confirmed_paises_long<-as.data.frame(covid_confirmed_paises) %>% gather(pais, casos)
 
 
-covid_long_1st <- covid_confirmed_paises_long %>% filter(casos>0)
+covid_long_100 <- covid_confirmed_paises_long %>% filter(casos>99)
 
 
-covid_long_1st$tempo_st<-c(1:dim(covid_long_1st %>% filter(pais=='Brasil'))[1],  1:dim(covid_long_1st %>% filter(pais=='Italia'))[1], 1:dim(covid_long_1st %>% filter(pais=='Japao'))[1])
+covid_long_1st$tempo_100<-c(1:dim(covid_long_100 %>% filter(pais=='Coreia do Sul'))[1], 1:dim(covid_long_100 %>% filter(pais=='Brasil'))[1],  1:dim(covid_long_100 %>% filter(pais=='Italia'))[1], 1:dim(covid_long_100 %>% filter(pais=='Japao'))[1])
 
 p_gif <- ggplot(covid_long_1st, aes(x=tempo_st, y=casos, group=pais)) +
   scale_y_log10()+
@@ -58,4 +63,4 @@ p_gif <- ggplot(covid_long_1st, aes(x=tempo_st, y=casos, group=pais)) +
   theme(plot.margin = margin(5.5, 40, 5.5, 5.5),legend.position = "none")
 
 gif_paises<-animate(p_gif, fps=4, duration = 20, renderer = gifski_renderer(loop = T))
-anim_save("paises_covid_1.gif", gif_paises)
+anim_save("paises_covid.gif", gif_paises)
