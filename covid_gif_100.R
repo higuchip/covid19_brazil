@@ -17,6 +17,8 @@ colnames(covid_confirmed)
 covid_confirmed_brasil <-covid_confirmed %>% filter(`Country/Region` == 'Brazil')
 covid_confirmed_brasil <-covid_confirmed_brasil[,5:dim(covid_confirmed_brasil)[2]]
 dim(covid_confirmed_brasil)
+covid_confirmed_brasil[62]<-1891 #atualizacao ministério da saúde
+
 
 covid_confirmed_italia <-covid_confirmed %>% filter(`Country/Region` == 'Italy')
 covid_confirmed_italia <-covid_confirmed_italia[,5:dim(covid_confirmed_italia)[2]]
@@ -54,7 +56,7 @@ covid_long_100$tempo_100<-c(tempo_100_coreia,tempo_100_brasil, tempo_100_italia,
 p_gif_100 <- ggplot(covid_long_100, aes(x=tempo_100, y=casos, group=pais)) +
   scale_y_log10()+
   ggtitle("COVID-19", subtitle = "Brasil, Coreia do Sul, Itália e Japão após o centésimo caso")+
-  labs(y="Casos confirmados (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE - 22/03/2020")+
+  labs(y="Casos confirmados (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE - 23/03/2020")+
   geom_line(size=2,aes(linetype=pais, color=pais)) +
   geom_segment(aes(xend=max(tempo_100), yend = casos), linetype=2, colour='black') +
   geom_point(size = 3) + 

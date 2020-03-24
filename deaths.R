@@ -17,19 +17,26 @@ colnames(deaths_confirmed)
 deaths_confirmed_brasil <-deaths_confirmed %>% filter(`Country/Region` == 'Brazil')
 deaths_confirmed_brasil <-deaths_confirmed_brasil[,5:dim(deaths_confirmed_brasil)[2]]
 dim(deaths_confirmed_brasil)
+deaths_confirmed_brasil[62]<-34 #from https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_daily_reports/03-23-2020.csv
 
 deaths_confirmed_italia <-deaths_confirmed %>% filter(`Country/Region` == 'Italy')
 deaths_confirmed_italia <-deaths_confirmed_italia[,5:dim(deaths_confirmed_italia)[2]]
 dim(deaths_confirmed_italia)
+deaths_confirmed_italia[62]<-6077	 #from https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_daily_reports/03-23-2020.csv
+
 
 
 deaths_confirmed_japao <-deaths_confirmed %>% filter(`Country/Region` == 'Japan')
 deaths_confirmed_japao <-deaths_confirmed_japao[,5:dim(deaths_confirmed_japao)[2]]
 dim(deaths_confirmed_japao)
+deaths_confirmed_japao[62]<-42	 #from https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_daily_reports/03-23-2020.csv
+
+
 
 deaths_confirmed_korea_s <-deaths_confirmed %>% filter(`Country/Region` == 'Korea, South')
 deaths_confirmed_korea_s <-deaths_confirmed_korea_s[,5:dim(deaths_confirmed_korea_s)[2]]
 dim(deaths_confirmed_korea_s)
+deaths_confirmed_korea_s[62]<-111	 #from https://github.com/CSSEGISandData/COVID-19/blob/master/csse_covid_19_data/csse_covid_19_daily_reports/03-23-2020.csv
 
 
 
@@ -53,7 +60,7 @@ deaths_long_1$tempo_1<-c(tempo_deaths_coreia,tempo_deaths_brasil, tempo_deaths_i
 death_gif_1 <- ggplot(deaths_long_1, aes(x=tempo_1, y=casos, group=pais)) +
   scale_y_log10()+
   ggtitle("COVID-19", subtitle = "Brasil, Coreia do Sul, Itália e Japão após décima mortalidade")+
-  labs(y="Número de Mortos (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE")+
+  labs(y="Número de Mortos (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE - 23/03/2020")+
   geom_line(size=2,aes(linetype=pais, color=pais)) +
   geom_segment(aes(xend=max(tempo_1), yend = casos), linetype=2, colour='black') +
   geom_point(size = 3) + 
