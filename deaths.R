@@ -56,7 +56,7 @@ colnames(deaths_confirmed_paises)<-c('Coreia S.','Brasil','EUA','Italia', 'Japao
 deaths_confirmed_paises_long<-as.data.frame(deaths_confirmed_paises) %>% gather(pais, casos)
 
 
-deaths_long_1 <- deaths_confirmed_paises_long %>% filter(casos>10)
+deaths_long_1 <- deaths_confirmed_paises_long %>% filter(casos>9)
 
 tempo_deaths_coreia<-1:dim(deaths_long_1 %>% filter(pais=='Coreia S.'))[1]
 tempo_deaths_brasil<-1:dim(deaths_long_1 %>% filter(pais=='Brasil'))[1]
@@ -69,7 +69,7 @@ deaths_long_1$tempo_1<-c(tempo_deaths_coreia,tempo_deaths_brasil, tempo_deaths_e
 death_gif_1 <- ggplot(deaths_long_1, aes(x=tempo_1, y=casos, group=pais)) +
   scale_y_log10()+
   ggtitle("COVID-19 - Mortalidade acumulada", subtitle = "Trajetória após a décima mortalidade")+
-  labs(y="Número de Mortos (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE - 24/03/2020")+
+  labs(y="Número de Mortos (log10)", x = "Tempo (dias)", caption = "Fonte dos dados: Johns Hopkins CSSE - 26/03/2020")+
   geom_line(size=2,aes(linetype=pais, color=pais)) +
   geom_segment(aes(xend=max(tempo_1), yend = casos), linetype=2, colour='black') +
   geom_point(size = 3) + 
@@ -83,4 +83,4 @@ death_gif_1 <- ggplot(deaths_long_1, aes(x=tempo_1, y=casos, group=pais)) +
   theme(plot.margin = margin(1.0, 40, 1.0, 1.0),legend.position = "none")
 
 gif_deaths<-animate(death_gif_1, fps=4, duration = 20, renderer = gifski_renderer(loop = F))
-anim_save("paises_deaths_caso_10.gif", gif_deaths)
+anim_save("paises_deaths_10.gif", gif_deaths)
